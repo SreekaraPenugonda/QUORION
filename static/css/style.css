@@ -1,0 +1,95 @@
+/* RESET AND BASE */
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+body {background:#f9f9fb; color:#222; line-height:1.6; scroll-behavior:smooth;}
+a {text-decoration:none; color:inherit;}
+img {max-width:100%; display:block;}
+
+/* HEADER */
+header {background:#fff; box-shadow:0 3px 15px rgba(0,0,0,0.08); position:sticky; top:0; z-index:1000;}
+.nav-container {max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:1rem;}
+.brand {font-size:2rem; font-weight:bold; color:#222; display:flex; align-items:center; gap:0.5rem;}
+nav a {margin-left:1.5rem; font-weight:500; transition:0.3s; color:#222; position:relative;}
+nav a::after {content:''; position:absolute; width:0; height:2px; bottom:-3px; left:0; background:#1a73e8; transition:0.3s;}
+nav a:hover::after {width:100%;}
+nav a:hover {color:#1a73e8;}
+
+/* HERO SECTION */
+.hero {max-width:900px; margin:3rem auto; text-align:center; padding:1rem;}
+.hero h1 {font-size:2.8rem; margin-bottom:0.5rem; color:#111; position:relative; animation:fadeInDown 1s ease;}
+.hero p {margin-bottom:2rem; font-size:1.2rem; color:#555; opacity:0.9;}
+
+/* HERO ANIMATION */
+@keyframes fadeInDown {
+  0% {opacity:0; transform:translateY(-30px);}
+  100% {opacity:1; transform:translateY(0);}
+}
+
+/* QR GENERATOR CARD */
+.qr-generator {background:#fff; padding:2rem; border-radius:20px; box-shadow:0 12px 25px rgba(0,0,0,0.06); transition:0.4s;}
+.qr-generator:hover {box-shadow:0 16px 35px rgba(0,0,0,0.12); transform:translateY(-2px);}
+.qr-generator fieldset {border:none; margin-bottom:1.5rem; padding:0;}
+.qr-generator legend {font-weight:bold; font-size:1.1rem; margin-bottom:0.5rem; color:#1a73e8;}
+
+/* FORM ELEMENTS */
+.qr-generator label {display:block; margin-top:0.8rem; font-weight:500; cursor:pointer;}
+.qr-generator input, .qr-generator select, .qr-generator button {width:100%; margin-top:0.3rem; padding:0.6rem 0.8rem; border-radius:10px; border:1px solid #ccc; font-size:1rem; transition:0.3s;}
+.qr-generator input:focus, .qr-generator select:focus {outline:none; border-color:#1a73e8; box-shadow:0 0 8px rgba(26,115,232,0.25);}
+.qr-generator button {border:none; cursor:pointer; font-weight:bold; margin-top:1rem; border-radius:12px; transition:0.3s;}
+.btn-primary {background:#1a73e8; color:#fff;}
+.btn-primary:hover {background:#1669c1; box-shadow:0 6px 15px rgba(26,115,232,0.3);}
+.btn-secondary {background:#f0f0f0; color:#222;}
+.btn-secondary:hover {background:#ddd;}
+
+/* DYNAMIC FIELDS */
+.dynamic {display:none; margin-top:0.5rem; text-align:left; transition:0.5s;}
+.dynamic input, .dynamic select {width:100%; margin-top:0.3rem;}
+
+/* TOOLTIP STYLE */
+label span[title] {border-bottom:1px dotted #1a73e8; cursor:help; color:#1a73e8; font-weight:bold;}
+
+/* PREVIEW */
+.preview {margin-top:1.5rem; text-align:center; animation:fadeInUp 0.6s ease;}
+.preview img {border-radius:16px; box-shadow:0 8px 25px rgba(0,0,0,0.08);}
+.preview a, .preview button {display:inline-block; margin:0.5rem; text-decoration:none; padding:0.6rem 1.2rem; border-radius:10px; transition:0.3s;}
+.preview a.btn-secondary:hover, .preview button:hover {background:#ccc; cursor:pointer;}
+
+/* SHARE BUTTONS */
+.share-buttons a {margin:0 0.5rem; padding:0.3rem 0.8rem; border-radius:8px; background:#1a73e8; color:#fff; font-size:0.9rem; transition:0.3s;}
+.share-buttons a:hover {background:#1669c1; transform:scale(1.05);}
+
+/* PREVIEW ANIMATION */
+@keyframes fadeInUp {0% {opacity:0; transform:translateY(20px);} 100% {opacity:1; transform:translateY(0);}}
+
+/* FEATURES SECTION */
+.features {max-width:1200px; margin:4rem auto; text-align:center; padding:0 1rem;}
+.features h2 {font-size:2.2rem; margin-bottom:2rem; color:#111;}
+.cards {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.8rem;}
+
+/* FEATURE CARD */
+.card {background:#fff; padding:2rem; border-radius:18px; box-shadow:0 12px 25px rgba(0,0,0,0.06); transition:0.4s; position:relative;}
+.card:hover {box-shadow:0 18px 35px rgba(0,0,0,0.12); transform:translateY(-5px);}
+.card span {font-size:2rem; display:block; margin-bottom:0.5rem;}
+.card h3 {margin-bottom:0.5rem; color:#1a73e8;}
+.card p {color:#555; font-size:0.95rem; margin-bottom:0.5rem;}
+.card .tags {position:absolute; top:15px; right:15px; background:#1a73e8; color:#fff; padding:0.2rem 0.6rem; border-radius:8px; font-size:0.75rem; font-weight:bold;}
+
+/* HOW IT WORKS */
+#howitworks .card span {font-size:2rem; display:block; margin-bottom:0.5rem; color:#1a73e8;}
+
+/* FOOTER */
+footer {background:#222; color:#fff; text-align:center; padding:2rem; margin-top:4rem;}
+footer a {color:#1a73e8; margin:0 0.5rem; transition:0.3s;}
+footer a:hover {text-decoration:underline;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-container{flex-direction:column; text-align:center;} 
+  nav a{margin:0.5rem 0;} 
+  .hero h1{font-size:2rem;}
+  .cards{grid-template-columns:1fr;}
+}
+
+/* ANIMATIONS FOR FORM ELEMENTS */
+input, select, button {transition:all 0.3s ease;}
+input:focus{transform:scale(1.02);}
+button:hover{transform:scale(1.03);}
