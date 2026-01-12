@@ -2,182 +2,220 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Quorion - Decode, Connect, Transform</title>
+
+<title>Quorion — Ancient Precision. Modern Connection.</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Quorion is a luxury QR generator inspired by ancient knowledge and modern design. Create WiFi, Contact, Social, and Custom QR codes instantly.">
+<meta name="keywords" content="QR Generator, Luxury QR, WiFi QR, Contact QR, Social QR, Custom QR">
+<meta name="author" content="Quorion">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<!-- Open Graph -->
+<meta property="og:title" content="Quorion — Luxury QR Generator">
+<meta property="og:description" content="Decode. Connect. Transform. Premium QR experiences.">
+<meta property="og:type" content="website">
 
-<!-- Smooth Scroll for nav -->
+<!-- Styles -->
+<link rel="stylesheet" href="style.css">
+
+<!-- Smooth Scroll -->
 <script>
-document.addEventListener("DOMContentLoaded", function(){
-  document.querySelectorAll('nav a').forEach(anchor=>{
-    anchor.addEventListener('click',function(e){
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
       e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+      document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
     });
   });
 });
 </script>
-
 </head>
+
 <body>
 
-<!-- HEADER -->
-<header>
-<div class="nav-container">
-    <div class="brand"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Quorion Logo" height="40"> Quorion</div>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#features">Features</a>
-        <a href="#howitworks">How it Works</a>
-        <a href="#contact">Contact</a>
+<header role="banner">
+  <div class="nav-container">
+    <div class="brand" aria-label="Quorion brand">
+      <img src="/static/images/logo.png" alt="Quorion ancient symbol logo" height="42" loading="lazy">
+      <span>Quorion</span>
+    </div>
+
+    <nav role="navigation" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#howitworks">How It Works</a>
+      <a href="#contact">Contact</a>
     </nav>
-</div>
+  </div>
 </header>
 
 <noscript>
-<p style="text-align:center; color:red;">JavaScript is required for full functionality. Please enable JS.</p>
+  <p class="noscript-warning">
+    JavaScript is required to generate QR previews. Please enable it for full experience.
+  </p>
 </noscript>
 
-<!-- HERO / QR GENERATOR -->
-<section class="hero">
-<h1 class="animated-text">Welcome to Quorion</h1>
-<p>Your luxury QR generator — fast, elegant, and customizable.</p>
+<main id="home">
 
-<div class="qr-generator">
-<form method="post" enctype="multipart/form-data">
-  <!-- CATEGORY -->
-  <fieldset>
-    <legend>QR Category</legend>
-    <label for="category">Select category <span title="Choose the type of QR you want to generate">?</span>:</label>
-    <select name="category" id="category" onchange="showFields()" required>
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <h1 id="hero-title" class="animated-text">Quorion</h1>
+  <p class="hero-subtitle">
+    An ancient idea reborn — generate elegant, intelligent QR codes with precision.
+  </p>
+
+  <div class="qr-generator" role="form" aria-label="QR Generator Form">
+
+  <form method="post" enctype="multipart/form-data" autocomplete="on">
+
+    <!-- CATEGORY -->
+    <fieldset>
+      <legend>QR Category</legend>
+
+      <label for="category">Choose QR type</label>
+      <select id="category" name="category" onchange="showFields()" required>
         <option value="website">Website / PDF</option>
         <option value="wifi">WiFi</option>
         <option value="social">Social Media</option>
         <option value="contact">Contact</option>
         <option value="text">Plain Text</option>
-    </select>
-  </fieldset>
+      </select>
 
-  <!-- DYNAMIC FIELDS -->
-  <fieldset class="dynamic" id="data_field">
-    <legend>Website / Text</legend>
-    <label>Data / URL <small>e.g. https://example.com</small>:</label>
-    <input type="text" name="data" placeholder="Enter your link or text" required>
-  </fieldset>
+      <small class="hint">Select what you want people to access after scanning.</small>
+    </fieldset>
 
-  <fieldset class="dynamic" id="wifi_fields">
-    <legend>WiFi QR</legend>
-    <label>SSID:</label><input type="text" name="ssid" placeholder="MyWiFi">
-    <label>Password:</label><input type="text" name="password" placeholder="******">
-    <label>Security:</label>
-    <select name="security">
-      <option value="WPA">WPA</option>
-      <option value="WEP">WEP</option>
-      <option value="NONE">None</option>
-    </select>
-  </fieldset>
+    <!-- DYNAMIC DATA -->
+    <fieldset class="dynamic" id="data_field">
+      <legend>Content</legend>
+      <label for="data">URL or Text</label>
+      <input id="data" type="text" name="data" placeholder="https://example.com" required>
+    </fieldset>
 
-  <fieldset class="dynamic" id="contact_fields">
-    <legend>Contact QR</legend>
-    <label>Name:</label><input type="text" name="name" placeholder="John Doe">
-    <label>Phone:</label><input type="text" name="phone" placeholder="+1234567890">
-    <label>Email:</label><input type="email" name="email" placeholder="you@example.com">
-  </fieldset>
+    <fieldset class="dynamic" id="wifi_fields">
+      <legend>WiFi Details</legend>
+      <input type="text" name="ssid" placeholder="Network Name (SSID)">
+      <input type="text" name="password" placeholder="WiFi Password">
+      <select name="security">
+        <option value="WPA">WPA / WPA2</option>
+        <option value="WEP">WEP</option>
+        <option value="NONE">Open Network</option>
+      </select>
+    </fieldset>
 
-  <fieldset class="dynamic" id="social_fields">
-    <legend>Social Media QR</legend>
-    <label>Platform:</label>
-    <select name="platform">
-      <option value="instagram">Instagram</option>
-      <option value="twitter">Twitter</option>
-      <option value="linkedin">LinkedIn</option>
-    </select>
-    <label>Username:</label><input type="text" name="username" placeholder="@yourhandle">
-  </fieldset>
+    <fieldset class="dynamic" id="contact_fields">
+      <legend>Contact Details</legend>
+      <input type="text" name="name" placeholder="Full Name">
+      <input type="tel" name="phone" placeholder="+91XXXXXXXXXX">
+      <input type="email" name="email" placeholder="email@example.com">
+    </fieldset>
 
-  <!-- CUSTOMIZATION -->
-  <fieldset>
-    <legend>Customization</legend>
-    <label>File Name:</label><input type="text" name="filename" placeholder="qr_code">
-    <label>QR Size (5-20):</label><input type="number" name="size" value="10" min="5" max="20">
-    <label>Foreground Color:</label><input type="text" name="fill_color" value="black">
-    <label>Background Color:</label><input type="text" name="back_color" value="white">
-    <label>File Format:</label>
-    <select name="file_format">
-      <option value="png">PNG</option>
-      <option value="jpg">JPG</option>
-    </select>
-    <label>Logo (optional):</label>
-    <input type="file" name="logo" accept="image/*">
-    <button type="reset" class="btn-secondary">Reset Form</button>
-  </fieldset>
+    <fieldset class="dynamic" id="social_fields">
+      <legend>Social Profile</legend>
+      <select name="platform">
+        <option value="instagram">Instagram</option>
+        <option value="twitter">Twitter (X)</option>
+        <option value="linkedin">LinkedIn</option>
+      </select>
+      <input type="text" name="username" placeholder="@username">
+    </fieldset>
 
-  <button type="submit" class="btn-primary">Generate QR</button>
-</form>
+    <!-- CUSTOMIZATION -->
+    <fieldset>
+      <legend>Design & Output</legend>
 
-<!-- PREVIEW -->
-{% if qr_url %}
-<div class="preview">
-<h3>Preview:</h3>
-<img src="{{ qr_url }}" width="250">
-<p>Category: {{ category }} | Size: {{ size }} | Colors: {{ fill_color }}/{{ back_color }}</p>
-<button onclick="copyQR('{{ qr_url }}')">Copy Image URL</button>
-<a href="{{ download_url }}" download class="btn-secondary">Download QR</a>
-<div class="share-buttons">
-  <p>Share:</p>
-  <a href="https://wa.me/?text={{ qr_url }}" target="_blank">WhatsApp</a> |
-  <a href="mailto:?body={{ qr_url }}" target="_blank">Email</a> |
-  <a href="https://twitter.com/intent/tweet?url={{ qr_url }}" target="_blank">Twitter</a>
-</div>
-</div>
-{% endif %}
-</div>
+      <input type="text" name="filename" placeholder="File name (optional)">
+      <input type="number" name="size" min="5" max="20" value="10">
+      <input type="text" name="fill_color" placeholder="Foreground color (e.g. black)">
+      <input type="text" name="back_color" placeholder="Background color (e.g. white)">
+
+      <select name="file_format">
+        <option value="png">PNG (Recommended)</option>
+        <option value="jpg">JPG</option>
+      </select>
+
+      <label>
+        Upload Logo (optional)
+        <input type="file" name="logo" accept="image/*">
+      </label>
+
+      <button type="reset" class="btn-secondary">Reset</button>
+    </fieldset>
+
+    <button type="submit" class="btn-primary">Generate QR</button>
+
+  </form>
+
+  <!-- PREVIEW -->
+  {% if qr_url %}
+  <figure class="preview" aria-live="polite">
+    <img src="{{ qr_url }}" alt="Generated QR code preview">
+    <figcaption>
+      Category: {{ category }} • Size: {{ size }} • Colors: {{ fill_color }} / {{ back_color }}
+    </figcaption>
+
+    <div class="preview-actions">
+      <button onclick="copyQR('{{ qr_url }}')">Copy Link</button>
+      <a href="{{ download_url }}" download class="btn-secondary">Download</a>
+    </div>
+  </figure>
+  {% endif %}
+
+  </div>
 </section>
 
 <!-- FEATURES -->
-<section class="features" id="features">
-<h2>Why Quorion?</h2>
-<div class="cards">
-  <div class="card"><span>📶</span><h3>WiFi QR</h3><p>Connect instantly without typing. Stylish and secure for guests or personal use.</p><span class="tags">Fast, Secure</span></div>
-  <div class="card"><span>📇</span><h3>Contact QR</h3><p>Share your contact elegantly. Works on all devices. Perfect for networking.</p><span class="tags">Elegant, Professional</span></div>
-  <div class="card"><span>📱</span><h3>Social Media QR</h3><p>Link Instagram, Twitter, or LinkedIn. Instant profile access with style.</p><span class="tags">Modern, Instant</span></div>
-  <div class="card"><span>🌐</span><h3>Website / PDF QR</h3><p>Share your site or PDF in one elegant scan. Fast, professional, memorable.</p><span class="tags">Reliable, Professional</span></div>
-  <div class="card"><span>🎨</span><h3>Custom QR</h3><p>Add logos, colors, and personal branding. Unique and luxurious experience.</p><span class="tags">Custom, Luxury</span></div>
-</div>
+<section id="features" class="features" aria-labelledby="features-title">
+  <h2 id="features-title">Why Quorion?</h2>
+
+  <div class="cards">
+    <div class="card">📶 <h3>WiFi QR</h3><p>Instant connectivity without typing.</p></div>
+    <div class="card">📇 <h3>Contact QR</h3><p>Professional digital identity.</p></div>
+    <div class="card">📱 <h3>Social QR</h3><p>One scan. One profile.</p></div>
+    <div class="card">🌐 <h3>Web & PDF</h3><p>Elegant sharing of knowledge.</p></div>
+    <div class="card">🎨 <h3>Luxury Design</h3><p>Brand-ready aesthetics.</p></div>
+  </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="features" id="howitworks">
-<h2>How It Works</h2>
-<div class="cards">
-  <div class="card"><span>1️⃣</span><h3>Step 1</h3><p>Enter your data or URL and select the QR category.</p></div>
-  <div class="card"><span>2️⃣</span><h3>Step 2</h3><p>Customize your QR with colors, size, and optional logo.</p></div>
-  <div class="card"><span>3️⃣</span><h3>Step 3</h3><p>Preview instantly and download your luxury QR code.</p></div>
-</div>
+<section id="howitworks" class="features">
+  <h2>How It Works</h2>
+  <div class="cards">
+    <div class="card">1️⃣ Choose</div>
+    <div class="card">2️⃣ Customize</div>
+    <div class="card">3️⃣ Download</div>
+  </div>
 </section>
 
 <!-- CONTACT -->
-<section class="features" id="contact">
-<h2>Contact</h2>
-<p>Email: support@quorion.com | Instagram: @quorion | Twitter: @quorion</p>
+<section id="contact" class="features">
+  <h2>Contact</h2>
+  <address>
+    Email: <a href="mailto:support@quorion.com">support@quorion.com</a><br>
+    Instagram: @quorion
+  </address>
 </section>
 
-<!-- JS -->
+</main>
+
+<footer>
+  <p>© 2026 Quorion — Crafted with precision and purpose.</p>
+</footer>
+
 <script>
 function showFields(){
-  const category=document.getElementById("category").value;
-  document.querySelectorAll(".dynamic").forEach(e=>e.style.display="none");
-  if(category==="wifi") document.getElementById("wifi_fields").style.display="block";
-  else if(category==="contact") document.getElementById("contact_fields").style.display="block";
-  else if(category==="social") document.getElementById("social_fields").style.display="block";
-  else document.getElementById("data_field").style.display="block";
+  document.querySelectorAll(".dynamic").forEach(d => d.style.display = "none");
+  const c = document.getElementById("category").value;
+  if(c==="wifi") wifi_fields.style.display="block";
+  else if(c==="contact") contact_fields.style.display="block";
+  else if(c==="social") social_fields.style.display="block";
+  else data_field.style.display="block";
 }
 showFields();
 
 function copyQR(url){
-  navigator.clipboard.writeText(url).then(()=>alert("QR URL copied!"));
+  navigator.clipboard.writeText(url).then(()=>alert("QR link copied!"));
 }
 </script>
+
 </body>
 </html>
