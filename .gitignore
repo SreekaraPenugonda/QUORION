@@ -1,21 +1,36 @@
-# Python
+# -------------------------
+# Python cache & binaries
+# -------------------------
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.sqlite3
+*.egg
+*.egg-info/
+
+# -------------------------
+# Virtual environments
+# -------------------------
 env/
 venv/
-*.egg-info/
-*.egg
 
-# Flask / uploads
+# -------------------------
+# Flask / Databases
+# -------------------------
 instance/
 *.db
 *.sqlite
+*.sqlite3
 
-# OS / IDE
+# -------------------------
+# OS / Editor files
+# -------------------------
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+
+# -------------------------
+# Generated QR images (optional)
+# -------------------------
+static/qrcodes/*.png
